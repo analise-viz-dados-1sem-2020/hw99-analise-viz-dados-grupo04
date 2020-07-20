@@ -1,13 +1,11 @@
 ---
-title: "Importando_os_dados"
-author: "Lucas Brandão"
 date: "19/07/2020"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse);library(magrittr);library(readxl)
+library(tidyverse);library(magrittr);library(readxl);library(knitr)
 ```
 
 # Importando os dados
@@ -15,13 +13,13 @@ library(tidyverse);library(magrittr);library(readxl)
 
 ```{r, results='hide'}
 df <- read.csv("./Dados/caso_full.csv")
-df2 <- read.csv("./Dados/caso.csv")
+
 
 ```
 
 ### Organizando os dados
 
-Selecionando apenas as cidades, depois selecionando apenas as colunas de interesse e mudando o tipo da coluna de codigos do IBGE para alterarmos os nomes das cidades posteriormente
+Selecionando apenas as cidades, depois selecionando apenas as colunas de interesse e mudando o tipo da coluna de codigos do IBGE para alterarmos os nomes das cidades posteriormente. Por fim adicionamos uma coluna com os meses, separados das datas, pois é uma informação que usaremos para responder nossas perguntas.
 ```{r}
 df <- df %>% filter(place_type == "city") %>% 
 select(c("date",
@@ -32,7 +30,9 @@ select(c("date",
          "estimated_population_2019",
          "epidemiological_week",
          "city_ibge_code")) %>% 
-  mutate(city_ibge_code = as.character(city_ibge_code))
+  mutate(city_ibge_code = as.character(city_ibge_code)) %>% 
+  mutate(Mes = substring(date,6,7))
+
 ```
 
 
@@ -48,17 +48,19 @@ Excluindo a coluna com os nomes mal formatados
 ```{r}
 dfarrumado$city <- NULL
 ```
-Arrumando a ordem das colunas
+Arrumando a ordem e o nome das colunas
 ```{r}
-df <- dfarrumado[,c(1,6,7,8,4,5,2,3)]
+df <- dfarrumado[,c(1,8,7,9,4,5,2,3)]
+colnames(df) <- c("data","mes","codigo","municipio","estado","popest2019","novoscasos","novasmortes")
+
 ```
-Verificandos os tipos e as estatisticas de cada coluna e retirando valores inválidos
-```{r}
-summary(df)
-df <- df %>% filter(new_confirmed >= 0) %>%
-  filter(new_deaths >= 0)
-summary(df)
+
+### Tabela gerada
+Apenas as 6 primeiras linhas
+```{r, echo = FALSE}
+kable(head(df))
 ```
+
 
 
 
