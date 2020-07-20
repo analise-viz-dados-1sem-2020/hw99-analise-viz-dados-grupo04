@@ -62,7 +62,15 @@ kable(head(df))
 ```
 
 
+### Perguntas que pretendemos responder com a análise dos dados
 
-
+1. Quais os municípios com o maior número de casos confirmados de Coronavírus?
+2. Quais os municípios com o maior número de mortos por Coronavírus?
+3. Os municípios com os maiores números de casos confirmados são os mesmos com os maiores números de mortos?
+4. Fazer as mesmas análises para Estados e Regiões do Brasil.
+5. Quais os 5 estados e 5 municípios que mais aumentaram o número de casos no mês de junho com relação ao maio?
+6. Quais os 5 estados com o menor crescimento de casos no mês de junho com relação ao maio?
+7. Quais os 5 estados e 5 municípios que mais aumentaram o número de óbitos no mês de junho com relação a maio?
+8. Como foi a evolução dos casos nos estados e nos municípios identificados nas questões acima?
 
 
